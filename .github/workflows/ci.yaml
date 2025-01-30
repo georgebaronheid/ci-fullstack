@@ -1,0 +1,12 @@
+name: ci-golang-workflow
+on: [push]
+jobs:
+  check-application:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 # da checkout na branch do projeto para conseguir o source code.
+      - uses: actions/setup-go@v2 # setup do ambiente go
+        with:
+          go-version: '1.22.4'
+      - run: go test
+      - run: go run math.go
