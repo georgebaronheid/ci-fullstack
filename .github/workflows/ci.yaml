@@ -1,12 +1,12 @@
 name: ci-golang-workflow
-on: [push]
+on: [push] # trigger do github
 jobs:
   check-application:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # equivalente a um FROM do Dockerfile?
     steps:
       - uses: actions/checkout@v2 # da checkout na branch do projeto para conseguir o source code.
       - uses: actions/setup-go@v2 # setup do ambiente go
         with:
           go-version: '1.22.4'
-      - run: go test
+      - run: go test # run executa comandos
       - run: go run main.go
