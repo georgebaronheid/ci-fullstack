@@ -43,6 +43,7 @@ jobs:
         id: docker_build # posso pegar o resultado da action e user dentro de outro step
         uses: docker/build-push-action@v6
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: georgebaronheid/ci-fullstack:latest
 
