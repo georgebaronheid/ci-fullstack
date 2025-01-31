@@ -1,5 +1,8 @@
 name: ci-golang-workflow
-on: [push] # trigger do github
+on:
+  pull_request:
+    branches:
+      - develop
 jobs:
   check-application:
     runs-on: ubuntu-latest # equivalente a um FROM do Dockerfile?
