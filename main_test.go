@@ -34,7 +34,7 @@ func TestSoma(t *testing.T) {
 				a: 10,
 				b: -10,
 			},
-			want: 1,
+			want: 0,
 		},
 	}
 	for _, tt := range tests {
