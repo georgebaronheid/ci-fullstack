@@ -3,13 +3,21 @@ on:
   pull_request:
     branches:
       - develop
+
 jobs:
   check-application:
     runs-on: ubuntu-latest # equivalente a um FROM do Dockerfile?
+    strategy:
+      matrix:
+        go:
+          [ "1.22.4", "1.21" ]
     steps:
-      - uses: actions/checkout@v2 # da checkout na branch do projeto para conseguir o source code.
-      - uses: actions/setup-go@v2 # setup do ambiente go
+      - name: Checkout
+        uses: actions/checkout@v2 # da checkout na branch do projeto para conseguir o source code.
+
+      - name: Setup Go
+        uses: actions/setup-go@v2 # setup do ambiente go
         with:
-          go-version: '1.22.4'
+          go-version: ${{ matrix.go }}
       - run: go test # run executa comandos
       - run: go run main.go
