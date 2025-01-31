@@ -18,7 +18,7 @@ func TestSoma(t *testing.T) {
 				a: 10,
 				b: 0,
 			},
-			want: 11,
+			want: 10,
 		},
 		{
 			name: "test soma 2",
