@@ -7,8 +7,7 @@ import "fmt"
 
 func main() {
 	fmt.Println(Soma(10, 10))
-}
-
-func Soma(a, b int) int {
-	return a + b
+	fmt.Println(Subtracao(10, 10))
+	fmt.Println(Multiplicacao(10, 10))
+	fmt.Println(Divisao(10, 10))
 }
