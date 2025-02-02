@@ -24,7 +24,7 @@ jobs:
       - run: go version
 
       - name: Go Test
-        run: go test ./... -coverprofile=coverage.txt -covermode=atomic
+        run: go test ./... -coverprofile=coverage.out -covermode=atomic
 
       - name: Go Run
         run: go run main.go
