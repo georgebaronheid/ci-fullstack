@@ -4,6 +4,13 @@ on:
     branches:
       - master
       - develop
+  workflow_run:
+    workflows:
+      - "ci-golang-workflow"
+    types:
+      - completed
+
+
 jobs:
   run-ci:
     name: Run CI
