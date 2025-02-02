@@ -1,5 +1,6 @@
 # CI Full Stack
 
+## SonarCloud
 
 ## SonarQube
 ### Run SonarQube

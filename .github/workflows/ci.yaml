@@ -1,8 +1,13 @@
 name: ci-golang-workflow
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
     branches:
       - develop
+      - master
 
 jobs:
   check-application:
@@ -10,20 +15,32 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2 # da checkout na branch do projeto para conseguir o source code.
+        uses: actions/checkout@v4 # da checkout na branch do projeto para conseguir o source code.
 
       - name: Setup Go
-        uses: actions/setup-go@v2 # setup do ambiente go
+        uses: actions/setup-go@v5 # setup do ambiente go
         with:
-          go-version: 1.22.4
-      - run: go test # run executa comandos
-      - run: go run main.go
+          go-version: '1.22.4'
+      - run: go version
+
+      - name: Go Test
+        run: go test ./... -coverprofile=coverage.out -covermode=atomic
+
+      - name: Go Run
+        run: go run main.go
 
       - name: Go Build
         run: go build -v
 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build-and-push:
-    needs: check-application
+    needs:
+      - check-application
     runs-on: ubuntu-latest
     steps:
       -

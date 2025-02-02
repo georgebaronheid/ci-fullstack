@@ -1,6 +1,32 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"os"
+	"testing"
+)
+
+func TestMainFunction(t *testing.T) {
+	// Save the original stdout
+	originalStdout := os.Stdout
+	defer func() { os.Stdout = originalStdout }()
+
+	// Capture the output
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	main()
+
+	w.Close()
+	var buf bytes.Buffer
+	buf.ReadFrom(r)
+	output := buf.String()
+
+	expectedOutput := "20\n0\n100\n1\n"
+	if output != expectedOutput {
+		t.Errorf("main() output = %v, want %v", output, expectedOutput)
+	}
+}
 
 func TestSoma(t *testing.T) {
 	type args struct {
